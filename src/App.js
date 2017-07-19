@@ -18,14 +18,20 @@ class App extends Component {
 
     this.state = { videos: [], selectedVideo: null };
 
-    YTSearch({ key: API_KEY, term: "niviki.com" }, videos =>{
+    // YTSearch({ key: API_KEY, term: "niviki.com" }, videos =>{
+    //     this.setState({ videos })
+    //     console.log(videos)
+    //     // 9--bCmrp83U
+    //     this.setState({ selectedVideo: videos[0]  })
+    // });
+    this.searchVideo('Closer')
+  }
+  searchVideo = (term) => {
+      YTSearch({ key: API_KEY, term }, videos => {
         this.setState({ videos })
-        console.log(videos)
         // 9--bCmrp83U
         this.setState({ selectedVideo: videos[0]  })
-    }
-      
-    );
+    })
   }
   onSelectVideo = (video) =>{
     console.log('change here')
@@ -45,7 +51,7 @@ class App extends Component {
         <Grid columns="two">
           <Grid.Column width={12} stretched>
             <Segment>
-              <SearchBar />
+              <SearchBar onSearchChange = {this.searchVideo}  />
                <VideoPlayer video = { this.state.selectedVideo } /> 
             </Segment>
           </Grid.Column>
